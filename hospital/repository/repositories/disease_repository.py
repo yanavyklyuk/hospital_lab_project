@@ -1,5 +1,5 @@
 from .base_repository import BaseRepository
-from repository.models.disease import Disease
+from ..models.disease import Disease
 
 
 class DiseaseRepository(BaseRepository):
