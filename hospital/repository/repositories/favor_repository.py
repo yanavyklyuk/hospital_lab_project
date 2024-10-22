@@ -1,5 +1,5 @@
 from .base_repository import BaseRepository
-from repository.models.favor import Favor
+from ..models.favor import Favor
 
 
 class FavorRepository(BaseRepository):

@@ -1,5 +1,5 @@
 from .base_repository import BaseRepository
-from repository.models.doctor import Doctor
+from ..models.doctor import Doctor
 
 
 class DoctorRepository(BaseRepository):
