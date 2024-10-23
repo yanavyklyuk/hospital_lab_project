@@ -16,5 +16,5 @@ class RepositoryManager:
         self.doctors = DoctorRepository()
         self.favors = FavorRepository()
         self.patients = PatientRepository()
-        self.schedule = ScheduleRepository()
-        self.specialisation = SpecialisationRepository()
+        self.schedules = ScheduleRepository()
+        self.specialisations = SpecialisationRepository()
