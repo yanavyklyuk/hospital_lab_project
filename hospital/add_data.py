@@ -1,10 +1,11 @@
 import os
 import django
-from repository.repositories.repository_manager import RepositoryManager
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hospital.settings')
 django.setup()
+
+from repository.repositories.repository_manager import RepositoryManager
 
 
 def add_data():
