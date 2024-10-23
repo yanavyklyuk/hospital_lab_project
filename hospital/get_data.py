@@ -1,10 +1,11 @@
 import os
 import django
+from repository.repositories.repository_manager import RepositoryManager
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hospital.settings')
 django.setup()
 
-from repository.repositories.repository_manager import RepositoryManager
 
 def get_data():
     repo_manager = RepositoryManager()
@@ -24,6 +25,14 @@ def get_data():
     print(repo_manager.diseases.get_by_id(2))
     print('All diseases: ')
     print(repo_manager.diseases.get_all())
+
+    print('Patient with ID 1: ')
+    print(repo_manager.patients.get_by_id(1))
+    print('Patient with ID 6: ')
+    print(repo_manager.patients.get_by_id(6))
+    print('All patients: ')
+    print(repo_manager.patients.get_all())
+
 
 if __name__ == '__main__':
     get_data()

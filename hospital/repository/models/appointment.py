@@ -6,6 +6,7 @@ from .doctor import Doctor
 from .patient import Patient
 from .favor import Favor
 
+
 class Appointment(models.Model):
     datetime_of_appointment = models.DateTimeField()
     status = models.CharField(max_length=10, choices=[('scheduled', 'Scheduled'), ('happened', 'Happened'),
