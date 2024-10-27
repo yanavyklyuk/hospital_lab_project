@@ -17,3 +17,6 @@ class Favor(models.Model):
             models.UniqueConstraint(fields=['name', 'cost'], name='uq_name_cost'),
             models.CheckConstraint(check = Q(cost__gte=0), name='ck_favor_cost'),
         ]
+
+    def clean(self):
+        pass

@@ -18,6 +18,8 @@ class BaseRepository(ABC):
             return None
 
     def create(self, **kwargs):
+        data = self.model(**kwargs)
+        data.clean()
         return self.model.objects.create(**kwargs)
 
     def update(self, instance, **kwargs):
@@ -33,6 +35,7 @@ class BaseRepository(ABC):
             else:
                 raise ValueError(f"Invalid field: {key}")
 
+        instance.clean()
         instance.save()
         return instance
 

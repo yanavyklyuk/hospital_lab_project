@@ -20,3 +20,5 @@ class Person(models.Model):
     def clean(self):
         if self.date_birth > timezone.now().date():
             raise ValidationError("Date of birth cannot be in the future.")
+        if self.sex not in ['male', 'female']:
+            raise ValidationError(f"Invalid sex: {self.sex}")

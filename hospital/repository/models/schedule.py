@@ -27,6 +27,8 @@ class Schedule(models.Model):
     def clean(self):
         if self.end_time <= self.start_time:
             raise ValidationError("End time must be greater than start time.")
+        if self.day not in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
+            raise ValidationError(f"Invalid schedule day: {self.day}")
 
     class Meta:
         verbose_name = 'Schedule'

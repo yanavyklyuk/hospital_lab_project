@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from .person import Person
 
@@ -26,3 +27,7 @@ class Patient(Person):
     class Meta:
         verbose_name = 'Patient'
         verbose_name_plural = 'Patients'
+
+    def clean(self):
+        if self.blood_type not in ['O+', 'O-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-']:
+            raise ValidationError(f"Invalid blood type: {self.blood_type}")

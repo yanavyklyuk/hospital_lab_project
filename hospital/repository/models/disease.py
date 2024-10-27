@@ -11,3 +11,6 @@ class Disease(models.Model):
         verbose_name = "Disease"
         verbose_name_plural = "Diseases"
         ordering = ['name']
+
+    def clean(self):
+        pass

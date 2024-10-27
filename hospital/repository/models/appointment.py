@@ -19,8 +19,10 @@ class Appointment(models.Model):
         return f"{self.datetime_of_appointment} - {self.patient} - {self.doctor}"
 
     def clean(self):
-        if self.datetime_of_appointment <= timezone.now():
+        if self.datetime_of_appointment <= timezone.datetime.now():
             raise ValidationError("Appointment cannot be in the past.")
+        if self.status not in ['scheduled', 'happened', 'cancelled']:
+            raise ValidationError(f"Invalid application status: {self.status}")
 
     class Meta:
         verbose_name = 'Appointment'

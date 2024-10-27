@@ -11,3 +11,6 @@ class Specialisation(models.Model):
         verbose_name = 'Specialisation'
         verbose_name_plural = 'Specialisations'
         ordering = ['name']
+
+    def clean(self):
+        pass
