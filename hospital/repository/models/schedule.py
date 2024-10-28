@@ -22,7 +22,7 @@ class Schedule(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Schedule: {self.doctor} - {self.day} - {self.start_time} - {self.end_time}"
+        return f"{self.doctor} - {self.day} - {self.start_time} - {self.end_time}"
 
     def clean(self):
         if self.end_time <= self.start_time:

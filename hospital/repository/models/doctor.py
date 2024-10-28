@@ -12,7 +12,7 @@ class Doctor(Person):
     photo = models.ImageField(upload_to='media/doctors/', blank=True, null=True)
 
     def __str__(self):
-        return f"Dr. {self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}"
 
     def clean(self):
         if self.practice_start_date >= timezone.now().date():

@@ -22,7 +22,7 @@ class Patient(Person):
     emergency_contact = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return f"Patient: {super().__str__()}"
+        return f"{super().__str__()}"
 
     class Meta:
         verbose_name = 'Patient'

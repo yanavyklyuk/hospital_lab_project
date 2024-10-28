@@ -16,7 +16,7 @@ class DiseaseHistory(models.Model):
     disease = models.ForeignKey(Disease, on_delete = models.RESTRICT)
 
     def __str__(self):
-        return f"Disease history: {self.patient} - {self.disease} - {self.start_of_disease} -  {self.end_of_disease}"
+        return f"{self.patient} - {self.disease} - {self.start_of_disease} - {self.end_of_disease}"
 
     def clean(self):
         if self.start_of_disease > timezone.now().date():
