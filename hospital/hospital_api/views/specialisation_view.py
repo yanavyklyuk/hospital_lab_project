@@ -2,8 +2,9 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
-from repository.repositories.repository_manager import RepositoryManager
+from hospital.repository.repositories.repository_manager import RepositoryManager
 from ..serializers.specialisation_serializer import SpecialisationSerializer
+
 
 class SpecialisationList(APIView):
 
@@ -20,6 +21,7 @@ class SpecialisationList(APIView):
             RepositoryManager().specialisations.create(**serializer.validated_data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SpecialisationDetail(APIView):
 

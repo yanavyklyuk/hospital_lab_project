@@ -2,7 +2,7 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
-from repository.repositories.repository_manager import RepositoryManager
+from hospital.repository.repositories.repository_manager import RepositoryManager
 from ..serializers.schedule_serializer import ScheduleSerializer
 
 class ScheduleList(APIView):
