@@ -7,7 +7,7 @@ class Favor(models.Model):
     cost = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
     def __str__(self):
-        return f"{self.name}: {self.cost} UAH"
+        return f"{self.name}: {self.cost}"
 
     class Meta:
         verbose_name = "Favor"
