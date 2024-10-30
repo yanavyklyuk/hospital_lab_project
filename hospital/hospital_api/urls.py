@@ -8,6 +8,7 @@ from .views.disease_view import DiseaseList, DiseaseDetail
 from .views.disease_history_view import DiseaseHistoryList, DiseaseHistoryDetail
 from .views.patient_view import PatientList, PatientDetail
 from rest_framework.authtoken.views import obtain_auth_token
+from .views.user_view import UserView
 from django.conf import settings
 
 urlpatterns = [
@@ -28,4 +29,5 @@ urlpatterns = [
     path("patients/", PatientList.as_view()),
     path("patients/<int:id>/", PatientDetail.as_view()),
     path("api-token-auth/", obtain_auth_token),
+    path('register/', UserView.as_view())
 ]
