@@ -7,6 +7,7 @@ from .views.appointment_view import AppointmentList, AppointmentDetail
 from .views.disease_view import DiseaseList, DiseaseDetail
 from .views.disease_history_view import DiseaseHistoryList, DiseaseHistoryDetail
 from .views.patient_view import PatientList, PatientDetail
+from .views.doctor_schedule_view import DoctorScheduleView
 from rest_framework.authtoken.views import obtain_auth_token
 from .views.user_view import UserView
 from django.conf import settings
@@ -29,5 +30,6 @@ urlpatterns = [
     path("patients/", PatientList.as_view()),
     path("patients/<int:id>/", PatientDetail.as_view()),
     path("api-token-auth/", obtain_auth_token),
-    path('register/', UserView.as_view())
+    path("register/", UserView.as_view()),
+    path("doctors/<int:doctor_id>/schedules/", DoctorScheduleView.as_view())
 ]
