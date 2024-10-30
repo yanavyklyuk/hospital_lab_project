@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from repository.models.appointment import Appointment
-from hospital_api.serializers import DoctorSerializer, PatientSerializer, FavorSerializer
+from .doctor_serializer import DoctorSerializer
+from .patient_serializer import PatientSerializer
+from .favor_serializer import FavorSerializer
 from repository.repositories.repository_manager import RepositoryManager
 
 
@@ -15,6 +17,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
     favor = FavorSerializer(read_only=True)
     favor_id = serializers.PrimaryKeyRelatedField(queryset=RepositoryManager().favors.get_all(),
                                                   source='favor', write_only=True, required=True)
+
     class Meta:
         model = Appointment
         fields = ['datetime_of_appointment', 'status', 'doctor', 'doctor_id', 'patient', 'patient_id', 'favor', 'favor_id']

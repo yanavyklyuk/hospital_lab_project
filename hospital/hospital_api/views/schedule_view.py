@@ -5,6 +5,7 @@ from rest_framework import permissions
 from repository.repositories.repository_manager import RepositoryManager
 from ..serializers.schedule_serializer import ScheduleSerializer
 
+
 class ScheduleList(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
