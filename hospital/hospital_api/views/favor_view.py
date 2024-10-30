@@ -5,6 +5,7 @@ from rest_framework import permissions
 from repository.repositories.repository_manager import RepositoryManager
 from ..serializers.favor_serializer import FavorSerializer
 
+
 class FavorList(APIView):
 
     permission_classes = [permissions.IsAuthenticated]

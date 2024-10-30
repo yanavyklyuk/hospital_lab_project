@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from repository.models.disease_history import DiseaseHistory
-from hospital_api.serializers import DoctorSerializer, PatientSerializer
+from .doctor_serializer import DoctorSerializer
+from .patient_serializer import PatientSerializer
 from repository.repositories.repository_manager import RepositoryManager
 
 

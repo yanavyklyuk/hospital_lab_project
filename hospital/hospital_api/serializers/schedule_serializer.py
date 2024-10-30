@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from repository.models.schedule import Schedule
-from hospital_api.serializers import DoctorSerializer
+from .doctor_serializer import DoctorSerializer
 from repository.repositories.repository_manager import RepositoryManager
 
 

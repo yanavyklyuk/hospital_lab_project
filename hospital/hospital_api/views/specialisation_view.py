@@ -5,6 +5,7 @@ from rest_framework import permissions
 from repository.repositories.repository_manager import RepositoryManager
 from ..serializers.specialisation_serializer import SpecialisationSerializer
 
+
 class SpecialisationList(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
@@ -20,6 +21,7 @@ class SpecialisationList(APIView):
             RepositoryManager().specialisations.create(**serializer.validated_data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SpecialisationDetail(APIView):
 
