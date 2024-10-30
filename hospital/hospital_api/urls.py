@@ -19,11 +19,11 @@ urlpatterns = [
     path("favors/", FavorList.as_view()),
     path("favors/<int:id>/", FavorDetail.as_view()),
     path("appointments/", AppointmentList.as_view()),
-    path("appointments/<int:id>", AppointmentDetail.as_view()),
+    path("appointments/<int:id>/", AppointmentDetail.as_view()),
     path("diseases/", DiseaseList.as_view()),
-    path("diseases/<int:id>", DiseaseDetail.as_view()),
+    path("diseases/<int:id>/", DiseaseDetail.as_view()),
     path("disease_histories/", DiseaseHistoryList.as_view()),
-    path("disease_histories/<int:id>", DiseaseHistoryDetail.as_view()),
+    path("disease_histories/<int:id>/", DiseaseHistoryDetail.as_view()),
     path("patients/", PatientList.as_view()),
-    path("patients/<int:id>", PatientDetail.as_view())
+    path("patients/<int:id>/", PatientDetail.as_view())
 ]
