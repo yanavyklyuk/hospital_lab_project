@@ -2,8 +2,9 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
-from hospital.repository.repositories.repository_manager import RepositoryManager
+from repository.repositories.repository_manager import RepositoryManager
 from ..serializers.favor_serializer import FavorSerializer
+
 
 class FavorList(APIView):
 
