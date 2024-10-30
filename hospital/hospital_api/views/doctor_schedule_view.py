@@ -5,6 +5,7 @@ from rest_framework import status
 from repository.repositories.repository_manager import RepositoryManager
 from ..serializers.doctor_schedule_serializer import DoctorScheduleSerializer
 
+
 class DoctorScheduleView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
