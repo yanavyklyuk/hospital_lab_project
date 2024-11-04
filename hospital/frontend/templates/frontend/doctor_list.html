@@ -1,0 +1,36 @@
+{% extends "frontend/object_list.html" %}
+
+{% load custom_filters %}  <!-- Завантаження кастомних фільтрів -->
+
+{% block title %}Doctor List{% endblock %}
+
+{% block object_list_title %}Doctor List{% endblock %}
+
+{% block content %}
+{% if doctors %}
+<table>
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Specialisation</th>
+        <th>Phone Number</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for doctor in doctors %}
+    <tr>
+        <td>{{ doctor.first_name }}</td>
+        <td>{{ doctor.last_name }}</td>
+        <td>{{ doctor.specialisation }}</td>
+        <td>{{ doctor.phone_number }}</td>
+        <td><a href="{% url 'doctor_detail' doctor.id %}">View Details</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No doctors found.</p>
+{% endif %}
+{% endblock %}
