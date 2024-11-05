@@ -11,11 +11,20 @@ def doctor_list(request):
 
     response = requests.get(api_url, headers=headers)
 
+    fields = [
+        ('first_name', 'First Name'),
+        ('last_name', 'Last Name'),
+        ('specialisation', 'Specialisation'),
+        ('phone_number', 'Phone Number')
+    ]
+
     if response.status_code == 200:
         doctors = response.json()
     else:
         doctors = []
-    return render(request, 'frontend/doctor/doctor_list.html', {'doctors': doctors})
+
+    return render(request, 'frontend/doctor/doctor_list.html', {'doctors': doctors, 'fields': fields})
+
 
 def doctor_detail(request, id):
     api_url = f"http://127.0.0.1:8000/hospital/doctors/{id}/"
