@@ -2,12 +2,12 @@
 
 {% load custom_filters %}
 
-{% block title %}Doctor List{% endblock %}
+{% block title %}Favor List{% endblock %}
 
-{% block header %}Doctor List{% endblock %}
+{% block header %}Favor List{% endblock %}
 
 {% block content %}
-{% if doctors %}
+{% if favors %}
 <table>
     <thead>
     <tr>
@@ -17,16 +17,16 @@
     </tr>
     </thead>
     <tbody>
-    {% for doctor in doctors %}
+    {% for favor in favors %}
     <tr>
         {% for field, _ in fields %}
-        <td>{{ doctor|get_attr:field }}</td>
+        <td>{{ favor|get_attr:field }}</td>
         {% endfor %}
     </tr>
     {% endfor %}
     </tbody>
 </table>
 {% else %}
-<p>No doctors found.</p>
+<p>No favors found.</p>
 {% endif %}
 {% endblock %}

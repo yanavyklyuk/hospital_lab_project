@@ -1,0 +1,26 @@
+{% extends "frontend/object_detail.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Schedule Detail{% endblock %}
+
+{% block header %}Schedule Detail{% endblock %}
+
+{% block content %}
+{% if schedule %}
+<table>
+    <tbody>
+    {% for key, label in fields %}
+    <tr>
+        <th>{{ label }}</th>
+        <td>{{ schedule|get_attr:key }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'schedule_list' %}">Back to list</a>
+{% else %}
+<p>No schedule data to display.</p>
+{% endif %}
+{% endblock %}

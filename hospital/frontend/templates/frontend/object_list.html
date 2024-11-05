@@ -11,18 +11,18 @@
 <table>
     <thead>
     <tr>
-        {% for field in headers %}
-        <th>{{ field }}</th>
+        {% for field, label in fields %}
+        <th>{{ label }}</th>
         {% endfor %}
     </tr>
     </thead>
     <tbody>
     {% for obj in object_list %}
-    <tr>
-        {% for field in headers %}
-        <td>{{ obj|get_attr:field }}</td>
-        {% endfor %}
-    </tr>
+        <tr>
+            {% for field in fields %}
+            <td>{{ object|get_attr:field }}</td>
+            {% endfor %}
+        </tr>
     {% endfor %}
     </tbody>
 </table>
