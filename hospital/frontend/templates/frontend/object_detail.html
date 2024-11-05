@@ -1,0 +1,26 @@
+{% extends "frontend/base.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Object Detail{% endblock %}
+
+{% block header %}Object Detail{% endblock %}
+
+{% block content %}
+    {% if object %}
+        <table>
+        <tbody>
+        {% for field in fields %}
+            <tr>
+                <th>{{ field }}</th>
+                <td>{{ object|get_attr:field }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+
+        <a href="{% url 'object_list' %}">Back to list</a>
+    {% else %}
+        <p>No objects to display.</p>
+    {% endif %}
+{% endblock %}

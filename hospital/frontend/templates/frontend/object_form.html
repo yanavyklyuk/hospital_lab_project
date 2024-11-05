@@ -1,0 +1,36 @@
+{% extends "frontend/base.html" %}
+
+{% block title %}Form{% endblock %}
+
+{% block header %}Fill Form{% endblock %}
+
+{% block content %}
+    {% if form.errors %}
+        <div class="error-messages">
+            <p>Correct mistakes below:</p>
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    <li>{{ field }}: {{ errors|join:", " }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" action="{% if action_url %}{{ action_url }}{% else %}#{% endif %}">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="field-errors">{{ field.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        {% block additional_fields %}{% endblock %}
+
+        <button type="submit">{{ submit_button_text|default:"Submit" }}</button>
+    </form>
+{% endblock %}

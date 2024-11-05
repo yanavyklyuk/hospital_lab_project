@@ -1,10 +1,10 @@
 {% extends "frontend/object_list.html" %}
 
-{% load custom_filters %}  <!-- Завантаження кастомних фільтрів -->
+{% load custom_filters %}
 
 {% block title %}Doctor List{% endblock %}
 
-{% block object_list_title %}Doctor List{% endblock %}
+{% block header %}Doctor List{% endblock %}
 
 {% block content %}
 {% if doctors %}
@@ -25,7 +25,7 @@
         <td>{{ doctor.last_name }}</td>
         <td>{{ doctor.specialisation }}</td>
         <td>{{ doctor.phone_number }}</td>
-        <td><a href="{% url 'doctor_detail' doctor.id %}">View Details</a></td>
+        <td><a href="{% url 'doctor_detail' id=doctor.id %}">View Details</a></td>
     </tr>
     {% endfor %}
     </tbody>

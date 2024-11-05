@@ -4,4 +4,6 @@ register = template.Library()
 
 @register.filter
 def get_attr(obj, attr):
+    if isinstance(obj, dict):
+        return obj.get(attr)
     return getattr(obj, attr, None)
