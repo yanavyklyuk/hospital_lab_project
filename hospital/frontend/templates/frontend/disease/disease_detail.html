@@ -1,0 +1,26 @@
+{% extends "frontend/object_detail.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Disease Detail{% endblock %}
+
+{% block header %}Disease Detail{% endblock %}
+
+{% block content %}
+    {% if disease %}
+        <table>
+        <tbody>
+        {% for key, label in fields %}
+            <tr>
+                <th>{{ label }}</th>
+                <td>{{ disease|get_attr:key }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+
+        <a href="{% url 'disease_list' %}">Back to list</a>
+    {% else %}
+        <p>No disease data to display.</p>
+    {% endif %}
+{% endblock %}
