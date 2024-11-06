@@ -2,12 +2,12 @@
 
 {% load custom_filters %}
 
-{% block title %}Doctor List{% endblock %}
+{% block title %}Disease List{% endblock %}
 
-{% block header %}Doctor List{% endblock %}
+{% block header %}Disease List{% endblock %}
 
 {% block content %}
-{% if doctors %}
+{% if diseases %}
 <table>
     <thead>
     <tr>
@@ -17,16 +17,16 @@
     </tr>
     </thead>
     <tbody>
-    {% for doctor in doctors %}
+    {% for disease in diseases %}
     <tr>
         {% for field, _ in fields %}
-        <td><a href="{% url 'doctor_detail' id=doctor.id %}">{{ doctor|get_attr:field }}</a></td>
+        <td><a href="{% url 'disease_detail' id=disease.id %}">{{ disease|get_attr:field }}</a></td>
         {% endfor %}
     </tr>
     {% endfor %}
     </tbody>
 </table>
 {% else %}
-<p>No doctors found.</p>
+<p>No diseases found.</p>
 {% endif %}
 {% endblock %}

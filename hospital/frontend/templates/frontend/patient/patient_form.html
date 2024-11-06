@@ -1,0 +1,89 @@
+{% extends "frontend/object_form.html" %}
+
+{% block title %}Patient Form{% endblock %}
+
+{% block header %}Fill Patient Form{% endblock %}
+
+{% block content %}
+    {% if form_errors %}
+        <div class="error-messages">
+            <p>Correct mistakes below:</p>
+            <ul>
+                {% for field, errors in form_errors.items %}
+                    <li>{{ field }}: {{ errors|join:", " }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" action="{% if action_url %}{{ action_url }}{% else %}#{% endif %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" value="{{ patient.first_name|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" value="{{ patient.last_name|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="sex">Gender</label>
+            <select id="sex" name="sex">
+                <option value="">Select Gender</option>
+                {% for sex, label in SEX %}
+                <option value="{{ sex }}" {% if patient.sex == sex %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="date_birth">Date of Birth</label>
+            <input type="date" id="date_birth" name="date_birth" value="{{ patient.date_birth|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="text" id="phone_number" name="phone_number" value="{{ patient.phone_number|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" value="{{ patient.country|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" value="{{ patient.city|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" id="street" name="street" value="{{ patient.street|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="blood_type">Blood Type</label>
+            <select id="blood_type" name="blood_type">
+                <option value="">Select Blood Type</option>
+                {% for blood_type, label in BLOOD_TYPES %}
+                <option value="{{ blood_type }}" {% if patient.blood_type == blood_type %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="insurance">Insurance</label>
+            <input type="checkbox" id="insurance" name="insurance" {% if patient.insurance %}checked{% endif %}>
+        </div>
+
+        <div class="form-group">
+            <label for="emergency_contact">Emergency Contact</label>
+            <input type="text" id="emergency_contact" value="{{ patient.emergency_contact|default_if_none:'' }}">
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

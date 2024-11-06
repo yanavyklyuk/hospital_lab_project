@@ -4,23 +4,71 @@
 
 {% block header %}Fill Doctor Form{% endblock %}
 
-{% block additional_fields %}
-    <div class="form-group">
-        <label for="specialisation_id">Specialisation</label>
-        <select name="specialisation_id" required>
-            {% for specialisation in specialisations %}
-                <option value="{{ specialisation.id }}" {% if doctor.specialisation_id == specialisation.id %}selected{% endif %}>
-                    {{ specialisation.name }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
+{% block content %}
+    {% if form_errors %}
+        <div class="error-messages">
+            <p>Correct mistakes below:</p>
+            <ul>
+                {% for field, errors in form_errors.items %}
+                    <li>{{ field }}: {{ errors|join:", " }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 
-    <div class="form-group">
-        <label for="sex">Sex</label>
-        <select name="sex" required>
-            <option value="male" {% if doctor.sex == 'male' %}selected{% endif %}>Male</option>
-            <option value="female" {% if doctor.sex == 'female' %}selected{% endif %}>Female</option>
-        </select>
-    </div>
+    <form method="post" action="{% if action_url %}{{ action_url }}{% else %}#{% endif %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" value="{{ doctor.first_name|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" value="{{ doctor.last_name|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="sex">Gender</label>
+            <select id="sex" name="sex">
+                <option value="">Select Gender</option>
+                {% for sex, label in SEX %}
+                <option value="{{ sex }}" {% if doctor.sex == sex %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="date_birth">Date of Birth</label>
+            <input type="date" id="date_birth" name="date_birth" value="{{ doctor.date_birth|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="text" id="phone_number" name="phone_number" value="{{ doctor.phone_number|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="practice_start_date">Practice Start Date</label>
+            <input type="date" id="practice_start_date" name="practice_start_date" value="{{ doctor.practice_start_date|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="education">Education</label>
+            <input type="text" id="education" name="education" value="{{ doctor.education|default_if_none:'' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="specialisation_id">Specialization</label>
+            <select id="specialisation_id" name="specialisation_id">
+                <option value="">Select Specialization</option>
+                {% for spec in specialisations %}
+                    <option value="{{ spec.id }}" {% if doctor.specialisation == spec.name %}selected{% endif %}>{{ spec.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
 {% endblock %}

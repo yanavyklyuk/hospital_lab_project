@@ -5,4 +5,4 @@ from repository.models.disease import Disease
 class DiseaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disease
-        fields = ['name']
+        fields = ['id', 'name']

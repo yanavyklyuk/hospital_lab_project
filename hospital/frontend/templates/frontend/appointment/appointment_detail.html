@@ -1,0 +1,46 @@
+{% extends "frontend/object_detail.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Appointment Detail{% endblock %}
+
+{% block header %}Appointment Detail{% endblock %}
+
+{% block content %}
+    {% if appointment %}
+        <table>
+        <tbody>
+        {% for key, label in fields %}
+            <tr>
+                <th>{{ label }}</th>
+                <td>
+                    {% if key == "doctor" %}
+                    <a href="{% url 'doctor_detail' id=appointment.doctor.id %}">
+                    {{ appointment.doctor.last_name }} {{ appointment.doctor.first_name }}
+                    </a>
+                {% elif key == "patient" %}
+                    <a href="{% url 'patient_detail' id=appointment.patient.id %}">
+                        {{ appointment.patient|get_attr:"first_name" }} {{ appointment.patient|get_attr:"last_name" }}
+                    </a>
+                {% elif key == "favor" %}
+                    {% if appointment.favor.id %}
+                    <a href="{% url 'favor_detail' id=appointment.favor.id %}">
+                        {{ appointment.favor|get_attr:"name" }}
+                    </a>
+                    {% else %}
+                    deleted
+                    {% endif %}
+                {% else %}
+                    {{ appointment|get_attr:key }}
+                {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+
+        <a href="{% url 'appointment_list' %}">Back to list</a>
+    {% else %}
+        <p>No appointment data to display.</p>
+    {% endif %}
+{% endblock %}
