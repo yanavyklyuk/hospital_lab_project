@@ -1,0 +1,70 @@
+{% extends "frontend/object_form.html" %}
+
+{% block title %}Appointment Form{% endblock %}
+
+{% block header %}Fill Appointment Form{% endblock %}
+
+{% block content %}
+{% if form_errors %}
+<div class="error-messages">
+    <p>Correct mistakes below:</p>
+    <ul>
+        {% for field, errors in form_errors.items %}
+        <li>{{ field }}: {{ errors|join:", " }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form method="post" action="{% if action_url %}{{ action_url }}{% else %}#{% endif %}">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="datetime_of_appointment">Datetime</label>
+        <input type="" id="datetime_of_appointment" name="datetime_of_appointment"
+               value="{{ appointment.datetime_of_appointment|date:'Y-m-d\\TH:i' }}:00">
+    </div>
+
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+            <option value="">Select Status</option>
+            {% for status, label in STATUS %}
+                <option value="{{ status }}" {% if appointment.status == status %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>    </div>
+
+    <div class="form-group">
+        <label for="doctor_id">Doctor</label>
+        <select id="doctor_id" name="doctor_id">
+            <option value="">Select Doctor</option>
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}" {% if appointment.doctor == doctor.last_name %}selected{% endif %}>{{ doctor.last_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="patient_id">Patient</label>
+        <select id="patient_id" name="patient_id">
+            <option value="">Select Patient</option>
+            {% for patient in patients %}
+                <option value="{{ patient.id }}" {% if appointment.patient == patient.last_name %}selected{% endif %}>{{ patient.last_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="favor_id">Favor</label>
+        <select id="favor_id" name="favor_id">
+            <option value="">Select Favor</option>
+            {% for favor in favors %}
+                <option value="{{ favor.id }}" {% if appointment.favor == favor.name %}selected{% endif %}>{{ favor.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

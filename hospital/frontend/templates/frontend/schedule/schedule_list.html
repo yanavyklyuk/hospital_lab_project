@@ -20,7 +20,15 @@
     {% for schedule in schedules %}
     <tr>
         {% for field, _ in fields %}
-        <td>{{ schedule|get_attr:field }}</td>
+            <td>
+                {% if field == "doctor" %}
+                    <a href="{% url 'doctor_detail' id=schedule.doctor.id %}">
+                        {{ schedule.doctor.last_name }} {{ schedule.doctor.first_name }}
+                    </a>
+                {% else %}
+                    {{ schedule|get_attr:field }}
+                {% endif %}
+            </td>
         {% endfor %}
     </tr>
     {% endfor %}

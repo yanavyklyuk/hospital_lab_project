@@ -2,12 +2,12 @@
 
 {% load custom_filters %}
 
-{% block title %}Patient List{% endblock %}
+{% block title %}Doctor Schedule List{% endblock %}
 
-{% block header %}Patient List{% endblock %}
+{% block header %}Doctor Schedule List{% endblock %}
 
 {% block content %}
-{% if patients %}
+{% if doctor_schedules %}
 <table>
     <thead>
     <tr>
@@ -17,16 +17,18 @@
     </tr>
     </thead>
     <tbody>
-    {% for patient in patients %}
+    {% for schedule in doctor_schedules %}
     <tr>
         {% for field, _ in fields %}
-        <td><a href="{% url 'patient_detail' id=patient.id %}">{{ patient|get_attr:field }}</a></td>
+        <td>
+            {{ schedule|get_attr:field }}
+        </td>
         {% endfor %}
     </tr>
     {% endfor %}
     </tbody>
 </table>
 {% else %}
-<p>No patients found.</p>
+<p>No schedules found.</p>
 {% endif %}
 {% endblock %}

@@ -8,7 +8,7 @@ class PatientDiseaseSerializer(serializers.ModelSerializer):
     class ShortDoctorSerializer(serializers.ModelSerializer):
         class Meta:
             model = Doctor
-            fields = ['first_name', 'last_name', 'phone_number']
+            fields = ['id', 'first_name', 'last_name', 'phone_number']
 
     doctor = ShortDoctorSerializer(read_only=True)
     disease = serializers.SlugRelatedField(read_only=True, slug_field='name')
