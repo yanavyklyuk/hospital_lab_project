@@ -20,6 +20,8 @@
 </table>
 
 <a href="{% url 'patient_list' %}">Back to list</a>
+    <a href="{% url 'patient_delete' id=patient.id %}">Delete</a>
+    <a href="{% url 'patient_form' id=patient.id %}">Edit</a>
 {% else %}
 <p>No patient data to display.</p>
 {% endif %}

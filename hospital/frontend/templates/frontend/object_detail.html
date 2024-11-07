@@ -19,7 +19,9 @@
         </tbody>
         </table>
 
-        <a href="{% url 'object_list' %}">Back to list</a>
+        <a href="{% url 'object_list' %}">Back to list</a> |
+        <a href="{% url 'object_form' id=object.id %}">Edit</a> |
+        <a href="{% url 'object_delete' id=object.id %}">Delete</a>
     {% else %}
         <p>No objects to display.</p>
     {% endif %}

@@ -112,3 +112,29 @@ def patient_form(request, id=None):
 
     return render(request, 'frontend/patient/patient_form.html', {'patient': patient, 'SEX': SEX,
                                                                 'BLOOD_TYPES': BLOOD_TYPES})
+
+def patient_delete(request, id):
+    api_url = f"http://127.0.0.1:8000/hospital/patients/{id}"
+    headers = {
+        'Authorization': f'Token {settings.API_TOKEN}'
+    }
+
+    if request.method == "POST":
+        response = requests.delete(api_url, headers=headers)
+
+        if response.status_code == 204:
+            return redirect(reverse('patient_list'))
+        else:
+            return render(request, 'frontend/patient/patient_list.html', {
+                'error_message': 'Failed to delete the patient. Please try again.'
+            })
+
+    response = requests.get(api_url, headers=headers)
+    if response.status_code == 200:
+        patient = response.json()
+    else:
+        patient = None
+
+    return render(request, 'frontend/patient/patient_delete.html', {
+        'patient': patient
+    })
