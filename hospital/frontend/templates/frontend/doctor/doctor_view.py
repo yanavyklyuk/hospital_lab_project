@@ -98,3 +98,29 @@ def doctor_form(request, id=None):
 
     return render(request, 'frontend/doctor/doctor_form.html', {'doctor': doctor,
                                                                 'specialisations': specialisations, 'SEX': SEX})
+
+def doctor_delete(request, id):
+    api_url = f"http://127.0.0.1:8000/hospital/doctors/{id}"
+    headers = {
+        'Authorization': f'Token {settings.API_TOKEN}'
+    }
+
+    if request.method == "POST":
+        response = requests.delete(api_url, headers=headers)
+
+        if response.status_code == 204:
+            return redirect(reverse('doctor_list'))
+        else:
+            return render(request, 'frontend/doctor/doctor_list.html', {
+                'error_message': 'Failed to delete the doctor. Please try again.'
+            })
+
+    response = requests.get(api_url, headers=headers)
+    if response.status_code == 200:
+        doctor = response.json()
+    else:
+        doctor = None
+
+    return render(request, 'frontend/doctor/doctor_delete.html', {
+        'doctor': doctor
+    })

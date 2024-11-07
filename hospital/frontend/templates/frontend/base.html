@@ -23,6 +23,42 @@
             text-align: center;
         }
 
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1em;
+            padding: 1em;
+            background-color: #457b9d;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1em;
+            padding: 1em;
+            background-color: #457b9d;
+        }
+
+        .nav-tile {
+            background-color: #1d3557;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 120px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .nav-tile:hover {
+            background-color: #a8dadc;
+            color: #1d3557;
+            transform: translateY(-5px);
+        }
+
         main {
             flex: 1;
             padding: 2em;
@@ -40,6 +76,14 @@
 </head>
 <body>
 <header>
+    <nav>
+        <a href="{% url 'doctor_list' %}">Doctors</a>
+        <a href="{% url 'patient_list' %}">Patients</a>
+        <a href="{% url 'appointment_list' %}">Appointments</a>
+        <a href="{% url 'schedule_list' %}">Schedules</a>
+        <a href="{% url 'favor_list' %}">Favors</a>
+        <a href="{% url 'disease_history_list' %}">Disease Histories</a>
+    </nav>
     <h1>{% block header %}Header{% endblock %}</h1>
 </header>
 <main>
