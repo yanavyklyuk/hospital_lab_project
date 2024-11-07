@@ -1,0 +1,34 @@
+{% extends "frontend/object_form.html" %}
+
+{% block title %}Patient Form{% endblock %}
+
+{% block header %}Fill Patient Form{% endblock %}
+
+{% block content %}
+{% if form_errors %}
+<div class="error-messages">
+    <p>Correct mistakes below:</p>
+    <ul>
+        {% for field, errors in form_errors.items %}
+        <li>{{ field }}: {{ errors|join:", " }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form method="post" action="{% if action_url %}{{ action_url }}{% else %}#{% endif %}">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="{{ favor.name|default_if_none:'' }}">
+    </div>
+
+    <div class="form-group">
+        <label for="cost">Cost</label>
+        <input type="text" id="cost" name="cost" value="{{ favor.cost|default_if_none:'' }}">
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

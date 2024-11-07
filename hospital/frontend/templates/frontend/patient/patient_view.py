@@ -57,6 +57,7 @@ def patient_detail(request, id):
 
     return render(request, 'frontend/patient/patient_detail.html', {'patient': patient, 'fields': fields})
 
+
 def patient_form(request, id=None):
     api_url = f"http://127.0.0.1:8000/hospital/patients/{id}/" if id else "http://127.0.0.1:8000/hospital/patients/"
     headers = {'Authorization': f'Token {settings.API_TOKEN}'}
