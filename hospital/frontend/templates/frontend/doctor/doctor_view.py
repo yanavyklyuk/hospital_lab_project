@@ -99,6 +99,7 @@ def doctor_form(request, id=None):
     return render(request, 'frontend/doctor/doctor_form.html', {'doctor': doctor,
                                                                 'specialisations': specialisations, 'SEX': SEX})
 
+
 def doctor_delete(request, id):
     api_url = f"http://127.0.0.1:8000/hospital/doctors/{id}"
     headers = {
