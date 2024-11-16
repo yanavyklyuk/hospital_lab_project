@@ -113,8 +113,9 @@ def patient_form(request, id=None):
     return render(request, 'frontend/patient/patient_form.html', {'patient': patient, 'SEX': SEX,
                                                                 'BLOOD_TYPES': BLOOD_TYPES})
 
+
 def patient_delete(request, id):
-    api_url = f"http://127.0.0.1:8000/hospital/patients/{id}"
+    api_url = f"http://127.0.0.1:8000/hospital/patients/{id}/"
     headers = {
         'Authorization': f'Token {settings.API_TOKEN}'
     }

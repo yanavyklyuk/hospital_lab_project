@@ -77,7 +77,7 @@ def favor_form(request, id=None):
 
 
 def favor_delete(request, id):
-    api_url = f"http://127.0.0.1:8000/hospital/favors/{id}"
+    api_url = f"http://127.0.0.1:8000/hospital/favors/{id}/"
     headers = {
         'Authorization': f'Token {settings.API_TOKEN}'
     }
