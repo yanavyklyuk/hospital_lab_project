@@ -23,7 +23,7 @@ app.layout = html.Div(
                 html.Div(
                     style={'width': '35%'},
                     children=[
-                        html.H4('Favor cost statistics'),
+                        html.H4('Favor income statistics'),
                         DataTable(
                             id='describe-table',
                             style_table={'height': '400px', 'overflowY': 'auto'},
@@ -50,6 +50,5 @@ def update_graphs(n):
     df = get_appointments()
     fig1 = create_pie_chart(df)
     table_data = describe_to_table(df[['favor_cost']])
-    print(table_data)
 
     return [fig1, table_data]
