@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from hospital_api import urls as hospital_urls
 from frontend import urls as frontend
+from dashboard import urls as dashboard_urls
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hospital/", include(hospital_urls)),
-    path("frontend/", include(frontend))
+    path("frontend/", include(frontend)),
+    path("django_plotly_dash/", include(dashboard_urls)),
 ]
