@@ -1,0 +1,33 @@
+{% extends "frontend/object_list.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Favor List{% endblock %}
+
+{% block header %}Favor List{% endblock %}
+
+{% block content %}
+{% if favors %}
+<table>
+    <thead>
+    <tr>
+        {% for field, label in fields %}
+        <th>{{ label }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for favor in favors %}
+    <tr>
+        {% for field, _ in fields %}
+        <td>{{ favor|get_attr:field }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <a href="{% url 'favor_form' %}">Add new</a>
+{% else %}
+<p>No favors found.</p>
+{% endif %}
+{% endblock %}

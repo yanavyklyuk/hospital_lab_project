@@ -1,0 +1,26 @@
+{% extends "frontend/object_detail.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Specialisation Detail{% endblock %}
+
+{% block header %}Specialisation Detail{% endblock %}
+
+{% block content %}
+{% if specialisation %}
+<table>
+    <tbody>
+    {% for key, label in fields %}
+    <tr>
+        <th>{{ label }}</th>
+        <td>{{ specialisation|get_attr:key }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'specialisation_list' %}">Back to list</a>
+{% else %}
+<p>No specialisation data to display.</p>
+{% endif %}
+{% endblock %}

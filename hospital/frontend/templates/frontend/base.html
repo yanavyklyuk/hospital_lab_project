@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital | {% block title %}Object{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #83a4d4, #b6fbff);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header, footer {
+            background-color: #1d3557;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1em;
+            padding: 1em;
+            background-color: #457b9d;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1em;
+            padding: 1em;
+            background-color: #457b9d;
+        }
+
+        .nav-tile {
+            background-color: #1d3557;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 120px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .nav-tile:hover {
+            background-color: #a8dadc;
+            color: #1d3557;
+            transform: translateY(-5px);
+        }
+
+        main {
+            flex: 1;
+            padding: 2em;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="{% url 'doctor_list' %}">Doctors</a>
+        <a href="{% url 'patient_list' %}">Patients</a>
+        <a href="{% url 'appointment_list' %}">Appointments</a>
+        <a href="{% url 'schedule_list' %}">Schedules</a>
+        <a href="{% url 'favor_list' %}">Favors</a>
+        <a href="{% url 'disease_history_list' %}">Disease Histories</a>
+    </nav>
+    <h1>{% block header %}Header{% endblock %}</h1>
+</header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+<footer>
+    <p>© 2024 Sigma Hospital</p>
+</footer>
+</body>
+</html>
+

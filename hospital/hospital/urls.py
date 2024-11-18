@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from hospital_api import urls as hospital_urls
+from frontend import urls as frontend
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("hospital/", include(hospital_urls))
+    path("hospital/", include(hospital_urls)),
+    path("frontend/", include(frontend))
 ]

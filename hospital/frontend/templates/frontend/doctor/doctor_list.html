@@ -1,0 +1,33 @@
+{% extends "frontend/object_list.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Doctor List{% endblock %}
+
+{% block header %}Doctor List{% endblock %}
+
+{% block content %}
+{% if doctors %}
+<table>
+    <thead>
+    <tr>
+        {% for field, label in fields %}
+        <th>{{ label }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for doctor in doctors %}
+    <tr>
+        {% for field, _ in fields %}
+        <td><a href="{% url 'doctor_detail' id=doctor.id %}">{{ doctor|get_attr:field }}</a></td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <a href="{% url 'doctor_form' %}">Add new</a>
+{% else %}
+<p>No doctors found.</p>
+{% endif %}
+{% endblock %}

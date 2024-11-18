@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from .db_connection import DATABASES
+from .db_connection import API_TOKEN
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     "repository",
     "hospital_api",
+    "frontend",
 ]
 
 MIDDLEWARE = [

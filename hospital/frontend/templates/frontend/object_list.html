@@ -1,0 +1,33 @@
+{% extends "frontend/base.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Object List{% endblock %}
+
+{% block header %}Object List{% endblock %}
+
+{% block content %}
+{% if object_list %}
+<table>
+    <thead>
+    <tr>
+        {% for field, label in fields %}
+        <th>{{ label }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for obj in object_list %}
+        <tr>
+            {% for field in fields %}
+            <td>{{ object|get_attr:field }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <a href="{% url 'object_form' %}">Add new</a>
+{% else %}
+<p>No objects to display.</p>
+{% endif %}
+{% endblock %}

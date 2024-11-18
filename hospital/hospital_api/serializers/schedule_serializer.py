@@ -12,4 +12,4 @@ class ScheduleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Schedule
-        fields = ['day', 'doctor', 'doctor_id', 'start_time', 'end_time', 'minutes_per_patient', 'cabinet_number']
+        fields = ['id', 'day', 'doctor', 'doctor_id', 'start_time', 'end_time', 'minutes_per_patient', 'cabinet_number']

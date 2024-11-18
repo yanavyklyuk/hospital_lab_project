@@ -1,0 +1,52 @@
+{% extends "frontend/object_list.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Appointment List{% endblock %}
+
+{% block header %}Appointment List{% endblock %}
+
+{% block content %}
+{% if appointments %}
+<table>
+    <thead>
+    <tr>
+        {% for field, label in fields %}
+        <th>{{ label }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for appointment in appointments %}
+    <tr>
+        {% for field, _ in fields %}
+            <td>
+                {% if field == "doctor" %}
+                    <a href="{% url 'doctor_detail' id=appointment.doctor.id %}">
+                    {{ appointment.doctor.last_name }} {{ appointment.doctor.first_name }}
+                    </a>
+                {% elif field == "patient" %}
+                    <a href="{% url 'patient_detail' id=appointment.patient.id %}">
+                        {{ appointment.patient|get_attr:"first_name" }} {{ appointment.patient|get_attr:"last_name" }}
+                    </a>
+                {% elif field == "favor" %}
+                    {% if appointment.favor.id %}
+                    <a href="{% url 'favor_detail' id=appointment.favor.id %}">
+                        {{ appointment.favor|get_attr:"name" }}
+                    </a>
+                    {% else %}
+                    deleted
+                    {% endif %}
+                {% else %}
+                    {{ appointment|get_attr:field }}
+                {% endif %}
+            </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No appointments found.</p>
+{% endif %}
+{% endblock %}

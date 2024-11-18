@@ -1,0 +1,42 @@
+{% extends "frontend/object_detail.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Disease History Detail{% endblock %}
+
+{% block header %}Disease History Detail{% endblock %}
+
+{% block content %}
+    {% if disease_history %}
+        <table>
+        <tbody>
+        {% for key, label in fields %}
+            <tr>
+                <th>{{ label }}</th>
+                <td>
+                    {% if key == "doctor" %}
+                        {% if disease_history.doctor.id %}
+                            <a href="{% url 'doctor_detail' id=disease_history.doctor.id %}">
+                                {{ disease_history.doctor.last_name }} {{ disease_history.doctor.first_name }}
+                            </a>
+                        {% else %}
+                            deleted
+                        {% endif %}
+                    {% elif key == "patient" %}
+                        <a href="{% url 'patient_detail' id=disease_history.patient.id %}">
+                            {{ disease_history.patient|get_attr:"first_name" }} {{ disease_history.patient|get_attr:"last_name" }}
+                        </a>
+                    {% else %}
+                        {{ disease_history|get_attr:key }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+
+        <a href="{% url 'disease_history_list' %}">Back to list</a>
+    {% else %}
+        <p>No disease history data to display.</p>
+    {% endif %}
+{% endblock %}

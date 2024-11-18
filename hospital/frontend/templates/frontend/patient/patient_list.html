@@ -1,0 +1,33 @@
+{% extends "frontend/object_list.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Patient List{% endblock %}
+
+{% block header %}Patient List{% endblock %}
+
+{% block content %}
+{% if patients %}
+<table>
+    <thead>
+    <tr>
+        {% for field, label in fields %}
+        <th>{{ label }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for patient in patients %}
+    <tr>
+        {% for field, _ in fields %}
+        <td><a href="{% url 'patient_detail' id=patient.id %}">{{ patient|get_attr:field }}</a></td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <a href="{% url 'patient_form' %}">Add new</a>
+{% else %}
+<p>No patients found.</p>
+{% endif %}
+{% endblock %}

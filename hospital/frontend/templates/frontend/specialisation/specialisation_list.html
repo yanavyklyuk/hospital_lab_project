@@ -1,0 +1,32 @@
+{% extends "frontend/object_list.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Specialisation List{% endblock %}
+
+{% block header %}Specialisation List{% endblock %}
+
+{% block content %}
+{% if specialisations %}
+<table>
+    <thead>
+    <tr>
+        {% for field, label in fields %}
+        <th>{{ label }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for specialisation in specialisations %}
+    <tr>
+        {% for field, _ in fields %}
+        <td>{{ specialisation|get_attr:field }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No specialisations found.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "frontend/object_list.html" %}
+
+{% load custom_filters %}
+
+{% block title %}Doctor Schedule List{% endblock %}
+
+{% block header %}Doctor Schedule List{% endblock %}
+
+{% block content %}
+{% if doctor_schedules %}
+<table>
+    <thead>
+    <tr>
+        {% for field, label in fields %}
+        <th>{{ label }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for schedule in doctor_schedules %}
+    <tr>
+        {% for field, _ in fields %}
+        <td>
+            {{ schedule|get_attr:field }}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No schedules found.</p>
+{% endif %}
+{% endblock %}

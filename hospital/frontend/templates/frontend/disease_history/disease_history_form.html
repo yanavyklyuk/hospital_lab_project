@@ -1,0 +1,64 @@
+{% extends "frontend/object_form.html" %}
+
+{% block title %}Disease History Form{% endblock %}
+
+{% block header %}Fill Disease History Form{% endblock %}
+
+{% block content %}
+{% if form_errors %}
+<div class="error-messages">
+    <p>Correct mistakes below:</p>
+    <ul>
+        {% for field, errors in form_errors.items %}
+        <li>{{ field }}: {{ errors|join:", " }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form method="post" action="{% if action_url %}{{ action_url }}{% else %}#{% endif %}">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="start_of_disease">Start Date</label>
+        <input type="date" id="start_of_disease" name="start_of_disease" value="{{ disease_history.start_of_disease|default_if_none:'' }}">
+    </div>
+
+    <div class="form-group">
+        <label for="end_of_disease">End Date</label>
+        <input type="date" id="end_of_disease" name="end_of_disease" value="{{ disease_history.end_of_disease|default_if_none:'' }}">
+    </div>
+
+    <div class="form-group">
+        <label for="patient_id">Patient</label>
+        <select id="patient_id" name="patient_id">
+            <option value="">Select Patient</option>
+            {% for patient in patients %}
+            <option value="{{ patient.id }}" {% if appointment.patient == patient.last_name %}selected{% endif %}>{{patient.first_name}} {{ patient.last_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="doctor_id">Doctor</label>
+        <select id="doctor_id" name="doctor_id">
+            <option value="">Select Doctor</option>
+            {% for doctor in doctors %}
+            <option value="{{ doctor.id }}" {% if appointment.doctor == doctor.last_name %}selected{% endif %}>{{doctor.first_name}} {{ doctor.last_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="disease_id">Disease</label>
+        <select id="disease_id" name="disease_id">
+            <option value="">Select Disease</option>
+            {% for disease in diseases %}
+            <option value="{{ disease.id }}" {% if appointment.disease == disease.name %}selected{% endif %}>{{ disease.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

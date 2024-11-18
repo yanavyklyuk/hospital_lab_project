@@ -20,4 +20,4 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Appointment
-        fields = ['datetime_of_appointment', 'status', 'doctor', 'doctor_id', 'patient', 'patient_id', 'favor', 'favor_id']
+        fields = ['id', 'datetime_of_appointment', 'status', 'doctor', 'doctor_id', 'patient', 'patient_id', 'favor', 'favor_id']
