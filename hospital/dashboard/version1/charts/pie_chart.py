@@ -1,3 +1,4 @@
+import plotly.express as px
 import requests
 import pandas as pd
 from django.conf import settings
@@ -32,6 +33,24 @@ def get_appointments():
     df = pd.DataFrame(flattened)
     df = df[df['status'] == 'happened']
     df = df.filter(items=['favor_name', 'favor_cost'])
-    print(df.columns)
+    df['favor_cost'] = df['favor_cost'].astype(float)
 
     return df
+
+def create_pie_chart(df):
+    fig = px.pie(df, values = 'favor_cost', names = 'favor_name', title = 'Hospital income')
+    return fig
+
+def describe_to_table(df):
+    if df.empty:
+        return []
+
+    description = df.describe()
+
+    description_reset = description.reset_index()
+
+    description_reset.columns = ['Statistic'] + list(description.columns)
+
+    table_data = description_reset.to_dict('records')
+
+    return table_data
