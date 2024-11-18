@@ -32,6 +32,7 @@ urlpatterns = [
     path('favors/<int:id>/', favor_view.favor_detail, name='favor_detail'),
     path('favors/new/', favor_view.favor_form, name='favor_form'),
     path('favors/<int:id>/edit/', favor_view.favor_form, name='favor_form'),
+    path('favors/<int:id>/delete/', favor_view.favor_delete, name='favor_delete'),
     path('diseases/', disease_view.disease_list, name='disease_list'),
     path('diseases/<int:id>/', disease_view.disease_detail, name='disease_detail'),
     path('diseases/new/', disease_view.disease_form, name='disease_form'),
@@ -42,6 +43,4 @@ urlpatterns = [
     path('disease_histories/<int:id>/edit/', disease_history_view.disease_history_form, name='disease_history_form'),
     path('appointments/', appointment_view.appointment_list, name='appointment_list'),
     path('appointments/<int:id>/', appointment_view.appointment_detail, name='appointment_detail'),
-    #path('appointments/new/', appointment_view.appointment_form, name='appointment_form'),
-    #path('appointments/<int:id>/edit/', appointment_view.appointment_form, name='appointment_form'),
 ]

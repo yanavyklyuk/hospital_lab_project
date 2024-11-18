@@ -20,6 +20,7 @@
 </table>
 
 <a href="{% url 'favor_list' %}">Back to list</a>
+<a href="{% url 'favor_delete' id=favor.id %}">Delete</a>
 {% else %}
 <p>No favor data to display.</p>
 {% endif %}

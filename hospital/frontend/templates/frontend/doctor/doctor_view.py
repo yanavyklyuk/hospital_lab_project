@@ -83,9 +83,12 @@ def doctor_form(request, id=None):
         if response.status_code in [200, 201]:
             return redirect(reverse('doctor_list'))
         else:
-            form_errors = response.json()
-            return render(request, 'frontend/doctor/doctor_form.html',
+            try:
+                form_errors = response.json()
+                return render(request, 'frontend/doctor/doctor_form.html',
                           {'form_errors': form_errors, 'id': id})
+            except:
+                return render(request, 'frontend/error.html',)
     doctor = {}
     if id:
         response = requests.get(api_url, headers=headers)
@@ -99,8 +102,9 @@ def doctor_form(request, id=None):
     return render(request, 'frontend/doctor/doctor_form.html', {'doctor': doctor,
                                                                 'specialisations': specialisations, 'SEX': SEX})
 
+
 def doctor_delete(request, id):
-    api_url = f"http://127.0.0.1:8000/hospital/doctors/{id}"
+    api_url = f"http://127.0.0.1:8000/hospital/doctors/{id}/"
     headers = {
         'Authorization': f'Token {settings.API_TOKEN}'
     }
