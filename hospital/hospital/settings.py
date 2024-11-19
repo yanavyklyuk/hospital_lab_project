@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "repository",
     "hospital_api",
     "frontend",
+    "dashboard.apps.DashboardConfig",
 ]
 
 MIDDLEWARE = [

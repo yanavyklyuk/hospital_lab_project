@@ -23,5 +23,6 @@ from frontend import urls as frontend
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hospital/", include(hospital_urls)),
-    path("frontend/", include(frontend))
+    path("frontend/", include(frontend)),
+    path("dashboard/", include("dashboard.urls")),
 ]
