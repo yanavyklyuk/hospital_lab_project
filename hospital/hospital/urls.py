@@ -25,4 +25,5 @@ urlpatterns = [
     path("hospital/", include(hospital_urls)),
     path("frontend/", include(frontend)),
     path("dashboard/", include("dashboard.urls")),
+    path('django_plotly_dash/', include('django_plotly_dash.urls')),
 ]
