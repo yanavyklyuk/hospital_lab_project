@@ -8,6 +8,7 @@ from dataframes import get_experience_dataframe, get_disease_history_seasons_dat
 
 df_1 = get_experience_dataframe('4948ee5037d704266422e96e6c3cf83fb76527bf')
 df_2 = get_disease_history_seasons_dataframe('4948ee5037d704266422e96e6c3cf83fb76527bf')
+df_3 = pd.read_csv("concurrency_analysis.csv")
 
 fig = px.imshow(
     df_1.pivot_table(index='appointment_category', columns='experience_category', values='doctor_count', fill_value=0),
@@ -33,6 +34,39 @@ fig.update_layout(
     )
 )
 
+fig_parallel = px.scatter_3d(
+    df_3,
+    x="threads",  # Кількість потоків на осі X
+    y="processes",  # Кількість процесів на осі Y
+    z="time",  # Час виконання на осі Z
+    size="time",  # Розмір бульбашок залежить від часу
+    color="time",  # Колір залежить від часу виконання
+    title="3D Concurrency Analysis: Processes vs Threads vs Time",
+    labels={
+        "threads": "Number of Threads",
+        "processes": "Number of Processes",
+        "time": "Execution Time (s)"
+    },
+    template="plotly_white",
+)
+fig_parallel.update_layout(
+    scene=dict(
+        xaxis=dict(
+            title="Number of Threads"
+        ),
+        yaxis=dict(
+            title="Number of Processes",
+            tickmode='array',  # Встановлення міток лише для цілих чисел
+            tickvals=[1, 2, 3, 4, 5],  # Тільки цілі значення для кількості потоків
+            ticktext=["1", "2", "3", "4", "5"]
+        ),
+        zaxis=dict(
+            title="Execution Time (s)",
+        ),
+    ),
+    coloraxis_colorbar=dict(title="Execution Time (s)"),
+)
+
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
@@ -55,7 +89,9 @@ app.layout = html.Div([
     html.Label("Doctors by Experience and Appointment Count"),
     dcc.Graph(id='heatmap', figure=fig),
     html.Label("Disease History Seasons"),
-    dcc.Graph(id='seasons-linear')
+    dcc.Graph(id='seasons-linear'),
+    html.H1("Concurrency Analysis Dashboard", style={"textAlign": "center"}),
+    dcc.Graph(id="3d-bubble-chart", figure=fig_parallel,)
 ])
 
 @app.callback(
@@ -64,12 +100,10 @@ app.layout = html.Div([
      Input('year-slider', 'value')]
 )
 def update_graphs(disease, year):
-    # Фільтрація даних за хворобою та роком
     filtered_df = df_2[
         (df_2['disease'] == disease) & (df_2['start_of_disease'].dt.year == year)
         ]
 
-    # Групування даних за місяцями та підрахунок кількості записів
     grouped_df = (
         filtered_df
         .groupby('start_month')
@@ -77,14 +111,11 @@ def update_graphs(disease, year):
         .reset_index(name='disease_count')
     )
 
-    # Додавання всіх місяців (1-12) зі значенням 0 для відсутніх місяців
     full_months = pd.DataFrame({'start_month': range(1, 13)})
     grouped_df = full_months.merge(grouped_df, on='start_month', how='left').fillna(0)
 
-    # Перетворення кількості захворювань у ціле число
     grouped_df['disease_count'] = grouped_df['disease_count'].astype(int)
 
-    # Створення лінійного графіка
     fig = px.line(
         grouped_df,
         x='start_month',
@@ -96,7 +127,6 @@ def update_graphs(disease, year):
         }
     )
 
-    # Оформлення графіка
     fig.update_layout(
         template="plotly_white",
         xaxis=dict(
@@ -109,12 +139,11 @@ def update_graphs(disease, year):
         ),
         yaxis=dict(
             title="Number of Diseases",
-            rangemode="tozero"  # Відображення значень від 0
+            rangemode="tozero"
         )
     )
 
     return fig
-
 
 
 if __name__ == '__main__':

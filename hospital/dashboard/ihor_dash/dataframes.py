@@ -46,17 +46,14 @@ def get_experience_dataframe(api_token):
     appointment_counts = df.groupby('doctor_id').size().reset_index(name='appointment_count')
     df = df.merge(appointment_counts, on='doctor_id')
 
-    # Категорії стажу
     experience_bins = [0, 5, 10, 15, float('inf')]
     experience_labels = ['0-5 years', '5-10 years', '10-15 years', '15+ years']
     df['experience_category'] = pd.cut(df['experience'], bins=experience_bins, labels=experience_labels, right=False)
 
-    # Оновлені категорії кількості записів
     appointment_bins = [0, 5, 10, 20, 30, float('inf')]
     appointment_labels = ['0-5', '5-10', '10-20', '20-30', '30+']
     df['appointment_category'] = pd.cut(df['appointment_count'], bins=appointment_bins, labels=appointment_labels, right=False)
 
-    # Групуємо за лікарями та підраховуємо кількість унікальних лікарів
     grouped_df = df.groupby(['experience_category', 'appointment_category'], observed=False)['doctor_id'].nunique().reset_index(name='doctor_count')
 
     return grouped_df
@@ -102,3 +99,18 @@ def get_disease_history_seasons_dataframe(api_token):
     df = pd.DataFrame(flattened_diseases)
 
     return df
+
+
+def describe_to_table(df):
+    if df.empty:
+        return []
+
+    description = df.describe()
+
+    description_reset = description.reset_index()
+
+    description_reset.columns = ['Statistic'] + list(description.columns)
+
+    table_data = description_reset.to_dict('records')
+
+    return table_data
