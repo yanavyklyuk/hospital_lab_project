@@ -4,10 +4,12 @@ from dash.dash_table import DataTable
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 from django_plotly_dash import DjangoDash
-from ..data.pie_chart_data import get_appointments, describe_to_table
+from ..data.pie_chart_data import get_appointments
 from ..data.map_chart_data import get_disease_histories, get_diseases
-from .charts.pie_chart import create_pie_chart
+from ..data.histogram_chart_data import get_disease_histories_h, get_diseases_h
+from .charts.pie_chart import create_pie_chart, describe_to_table
 from .charts.map_chart import create_map_chart, describe_to_table_map
+from .charts.histogram_chart import create_histogram_chart, describe_to_table_hist
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -89,6 +91,49 @@ html.Div(
             )
         ]
     ),
+
+    html.Div(
+        style={
+            'display': 'flex',
+            'flexDirection': 'row',
+            'justifyContent': 'space-between',
+            'padding': '20px'
+        },
+        children=[
+            html.Div(
+                style={'flex': '1', 'marginRight': '20px'},
+                children=[
+                    html.H4('Disease duration statistics', style={'textAlign': 'center'}),
+                    DataTable(
+                        id='describe-table-hist',
+                        style_table={'height': '600px', 'overflowY': 'auto'},
+                        style_cell={'textAlign': 'center', 'padding': '10px'},
+                        columns=[
+                            {'name': 'Statistic', 'id': 'Statistic'},
+                            {'name': 'Values', 'id': 'duration'}
+                        ],
+                        data=[]
+                    )
+                ]
+            ),
+
+            html.Div(
+                style={'flex': '1', 'marginRight': '20px'},
+                children=[
+                    dcc.Dropdown(
+                        id='disease-dropdown-histogram',
+                        options=[],
+                        value=None,
+                        clearable=False,
+                        placeholder="All"
+                    ),
+                    dcc.Graph(id='histogram-chart', animate=True)
+                ]
+            ),
+
+
+        ]
+    ),
 ])
 
 
@@ -97,25 +142,40 @@ html.Div(
      Output('map-chart', 'figure'),
      Output('disease-dropdown', 'options'),
      Output('describe-table', 'data'),
-     Output('describe-table-map', 'data')],
+     Output('describe-table-map', 'data'),
+     Output('describe-table-hist', 'data'),
+     Output('histogram-chart', 'figure'),
+     Output('disease-dropdown-histogram', 'options')],
     [
-     Input('disease-dropdown', 'value')]
+        Input('disease-dropdown', 'value'),
+        Input('disease-dropdown-histogram', 'value')]
 )
-def update_graphs(selected_disease):
-    df = get_appointments()
-    df2 = get_disease_histories()
+def update_graphs(selected_disease, selected_disease_histogram):
+    df_pie = get_appointments()
+    df_map = get_disease_histories()
+    df_histogram = get_disease_histories_h()
 
-    disease_options = get_diseases(df2)
+    disease_options = get_diseases(df_map)
+
     if selected_disease:
-        df2_filtered = df2[df2['disease'] == selected_disease]
+        df_map_filtered = df_map[df_map['disease'] == selected_disease]
     else:
-        df2_filtered = df2
+        df_map_filtered = df_map
 
-    graph = create_pie_chart(df)
+    disease_options_h = get_diseases_h(df_histogram)
 
-    map_chart = create_map_chart(df2_filtered)
+    if selected_disease_histogram:
+        df_hist_filtered = df_histogram[df_histogram['disease'] == selected_disease_histogram]
+    else:
+        df_hist_filtered = df_histogram
 
-    table_data = describe_to_table(df[['favor_cost']])
-    table_data_map = describe_to_table_map(df2_filtered)
+    pie_chart = create_pie_chart(df_pie)
+    map_chart = create_map_chart(df_map_filtered)
+    histogram_chart = create_histogram_chart(df_hist_filtered)
 
-    return graph, map_chart, disease_options, table_data, table_data_map
+    table_data = describe_to_table(df_pie[['favor_cost']])
+    table_data_map = describe_to_table_map(df_map_filtered)
+    table_data_hist = describe_to_table_hist(df_hist_filtered)
+
+    return (pie_chart, map_chart, disease_options, table_data, table_data_map, table_data_hist,
+            histogram_chart, disease_options_h)

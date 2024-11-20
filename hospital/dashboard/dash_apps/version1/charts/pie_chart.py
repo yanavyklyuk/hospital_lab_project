@@ -17,3 +17,17 @@ def create_pie_chart(df):
     )
 
     return fig
+
+def describe_to_table(df):
+    if df.empty:
+        return []
+
+    description = df.describe()
+
+    description_reset = description.reset_index()
+
+    description_reset.columns = ['Statistic'] + list(description.columns)
+
+    table_data = description_reset.to_dict('records')
+
+    return table_data
