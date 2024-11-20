@@ -1,9 +1,10 @@
 import dash
 from dash import dcc, html
+from dash.dash_table import DataTable
 import pandas as pd
 import plotly.express as px
 from dash.dependencies import Input, Output
-from dataframes import get_experience_dataframe, get_disease_history_seasons_dataframe
+from dataframes import get_experience_dataframe, get_disease_history_seasons_dataframe, describe_to_table
 
 
 df_1 = get_experience_dataframe('4948ee5037d704266422e96e6c3cf83fb76527bf')
@@ -88,14 +89,45 @@ app.layout = html.Div([
     ),
     html.Label("Doctors by Experience and Appointment Count"),
     dcc.Graph(id='heatmap', figure=fig),
+    DataTable(
+        id='describe-table',
+        style_table={'height': '400px', 'overflowY': 'auto'},
+        style_cell={'textAlign': 'center', 'padding': '10px'},
+        columns=[
+            {'name': 'Statistic', 'id': 'Statistic'},
+            {'name': 'Values', 'id': 'favor_cost'}
+        ],
+        data=describe_to_table(df_1)
+    ),
     html.Label("Disease History Seasons"),
     dcc.Graph(id='seasons-linear'),
+    DataTable(
+        id='describe-table',
+        style_table={'height': '400px', 'overflowY': 'auto'},
+        style_cell={'textAlign': 'center', 'padding': '10px'},
+        columns=[
+            {'name': 'Statistic', 'id': 'Statistic'},
+            {'name': 'Values', 'id': 'favor_cost'}
+        ],
+        data=[]
+    ),
     html.H1("Concurrency Analysis Dashboard", style={"textAlign": "center"}),
-    dcc.Graph(id="3d-bubble-chart", figure=fig_parallel,)
+    dcc.Graph(id="3d-bubble-chart", figure=fig_parallel,),
+    DataTable(
+        id='describe-table',
+        style_table={'height': '400px', 'overflowY': 'auto'},
+        style_cell={'textAlign': 'center', 'padding': '10px'},
+        columns=[
+            {'name': 'Statistic', 'id': 'Statistic'},
+            {'name': 'Values', 'id': 'favor_cost'}
+        ],
+        data=describe_to_table(df_3)
+    ),
 ])
 
 @app.callback(
-    Output('seasons-linear', 'figure'),
+    [Output('seasons-linear', 'figure'),
+     Output('describe-table', 'data')],
     [Input('disease-dropdown', 'value'),
      Input('year-slider', 'value')]
 )
@@ -143,7 +175,9 @@ def update_graphs(disease, year):
         )
     )
 
-    return fig
+    datatable = describe_to_table(grouped_df)
+
+    return fig, datatable
 
 
 if __name__ == '__main__':
