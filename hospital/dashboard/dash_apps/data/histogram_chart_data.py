@@ -34,7 +34,6 @@ def get_disease_histories_h():
     df['patient_db'] = pd.to_datetime(df['patient_db'], errors='coerce')
     df['end_of_disease'] = pd.to_datetime(df['end_of_disease'], errors='coerce')
     df['start_of_disease'] = pd.to_datetime(df['start_of_disease'], errors='coerce')
-    print(df.dtypes)
     df['patient_age'] = (now - df['patient_db']).dt.days // 365
     df['duration'] = (df['end_of_disease'] - df['start_of_disease']).dt.days
     df = df.filter(items=['patient_age', 'disease', 'duration'])
