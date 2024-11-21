@@ -116,6 +116,19 @@ html.Div(
             html.Div(
                 style={'flex': '1', 'marginRight': '20px'},
                 children=[
+                    dcc.Dropdown(
+                        id='disease-dropdown-histogram',
+                        options=[],
+                        value=None,
+                        clearable=False,
+                        placeholder="All"
+                    ),
+                    dcc.Graph(id='histogram-chart', animate=True)
+                ]
+            ),
+            html.Div(
+                style={'flex': '1', 'marginRight': '20px'},
+                children=[
                     html.H4('Disease duration statistics', style={'textAlign': 'center'}),
                     DataTable(
                         id='describe-table-hist',
@@ -129,22 +142,6 @@ html.Div(
                     )
                 ]
             ),
-
-            html.Div(
-                style={'flex': '1', 'marginRight': '20px'},
-                children=[
-                    dcc.Dropdown(
-                        id='disease-dropdown-histogram',
-                        options=[],
-                        value=None,
-                        clearable=False,
-                        placeholder="All"
-                    ),
-                    dcc.Graph(id='histogram-chart', animate=True)
-                ]
-            ),
-
-
         ]
     ),
 
@@ -156,6 +153,12 @@ html.Div(
             'padding': '20px'
         },
         children=[
+            html.Div(
+                style={'flex': '1', 'marginRight': '20px'},
+                children=[
+                    dcc.Graph(id='heatmap-chart', animate=True),
+                ]
+            ),
             html.Div(
                 style={'flex': '1', 'marginRight': '20px'},
                 children=[
@@ -172,14 +175,6 @@ html.Div(
                     )
                 ]
             ),
-
-            html.Div(
-                style={'flex': '1', 'marginRight': '20px'},
-                children=[
-                    dcc.Graph(id='heatmap-chart', animate=True),
-                ]
-            ),
-
         ]
     ),
 

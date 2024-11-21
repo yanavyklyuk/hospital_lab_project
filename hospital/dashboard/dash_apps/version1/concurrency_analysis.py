@@ -55,8 +55,7 @@ def analyze_concurrency(url, api_token, num_requests=250):
 
             print(f"Processes: {num_processes}, Threads: {num_threads}, Time: {total_time:.2f} seconds")
 
-    df = pd.DataFrame(results)
-    return df
+    return pd.DataFrame(results)
 
 
 if __name__ == "__main__":
