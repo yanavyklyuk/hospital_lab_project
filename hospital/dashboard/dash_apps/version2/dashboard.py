@@ -21,25 +21,26 @@ df_map, map_chart, table_map, disease_dropdown_map, geo_source, color_bar, sourc
 
 
 def update_map(attr, old, new):
+    # Завантаження GeoJSON-даних
     url = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
     response = requests.get(url)
     if response.status_code == 200:
-        geojson_data = response.json()  # This is where geojson_data gets its value
+        geojson_data = response.json()
     else:
-        # Handle the case where the request fails
         raise ValueError(f"Failed to fetch GeoJSON: {response.status_code}")
-    selected_disease = disease_dropdown.value
+
+    # Отримання обраного захворювання
+    selected_disease = disease_dropdown_map.value
     if selected_disease == "All":
         filtered_data = df_map
     else:
         filtered_data = df_map[df_map["disease"] == selected_disease]
 
-    # Reprocess data for the map chart
+    # Підготовка даних для мапи
     country_counts = preprocess_data(filtered_data)
-
     country_counts['color'] = country_counts['Cases'].apply(lambda x: 0 if x == 0 else x)
 
-    # Update geo_source for the map chart
+    # Оновлення властивостей у GeoJSON
     for feature in geojson_data['features']:
         country_name = feature['properties']['ADMIN']
         if country_name in country_counts['Country'].values:
@@ -48,35 +49,43 @@ def update_map(attr, old, new):
         else:
             feature['properties']['Cases'] = 0
 
+    # Конвертація типів для GeoJSON
     geojson_data = convert_geojson_types(geojson_data)
 
-    # Оновлюємо GeoJSONDataSource
-    geo_source.geojson = json.dumps(geojson_data)
+    # Мінімальні та максимальні значення для кольорової мапи
+    min_cases = country_counts['Cases'].min()
+    max_cases = country_counts['Cases'].max()
 
-    # Оновлюємо color_mapper для нових значень
-    min_cases = country_counts['Cases'].min()  # Мінімум
-    max_cases = country_counts['Cases'].max()  # Максимум
-
-    # Якщо мінімум дорівнює 0, ми налаштовуємо його так, щоб 0 було відображене білим
-    color_mapper = linear_cmap(
+    # Створення нового color_mapper
+    new_color_mapper = linear_cmap(
         field_name="Cases",
         palette=Viridis256,
         low=min_cases if min_cases > 0 else 1,  # мінімум 1, якщо є 0
         high=max_cases
     )
 
-    # Оновлюємо колірну шкалу
-    color_bar.color_mapper = color_mapper['transform']
+    # Функція для оновлення
+    def update():
+        # Оновлення GeoJSONDataSource
+        geo_source.geojson = json.dumps(geojson_data)
 
-    # Оновлюємо кольори на карті
-    map_chart.patches(
-        'xs', 'ys', source=geo_source,
-        fill_color=color_mapper, line_color="white", line_width=0.5
-    )
+        # Очищення старих рендерерів та додавання нового графіку
+        map_chart.renderers = []
+        map_chart.patches(
+            'xs', 'ys', source=geo_source,
+            fill_color=new_color_mapper, line_color="white", line_width=0.5
+        )
 
-    stats_map = country_counts['Cases'].describe().reset_index()
-    stats_map.columns = ['Statistic', 'Value']
-    source_stats_map.data = stats_map.to_dict(orient='list')
+        # Оновлення колірної шкали
+        color_bar.color_mapper = new_color_mapper['transform']
+
+        # Оновлення статистичних даних у таблиці
+        stats_map = country_counts['Cases'].describe().reset_index()
+        stats_map.columns = ['Statistic', 'Value']
+        source_stats_map.data = stats_map.to_dict(orient='list')
+
+    # Виклик оновлення через add_next_tick_callback
+    curdoc().add_next_tick_callback(update)
 
 
 disease_dropdown_map.on_change("value", update_map)
