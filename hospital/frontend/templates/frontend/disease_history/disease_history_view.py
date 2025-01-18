@@ -75,9 +75,12 @@ def disease_history_form(request, id=None):
         if response.status_code in [200, 201]:
             return redirect(reverse('disease_history_list'))
         else:
-            form_errors = response.json()
-            return render(request, 'frontend/disease_history/disease_history_form.html',
+            try:
+                form_errors = response.json()
+                return render(request, 'frontend/disease_history/disease_history_form.html',
                           {'form_errors': form_errors, 'id': id})
+            except:
+                return render(request, 'frontend/error.html',)
 
     disease_history = {}
     if id:
