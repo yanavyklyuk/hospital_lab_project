@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Hospital | {% block title %}Object{% endblock %}</title>
     <style>
         body {
@@ -135,6 +136,8 @@
 <body>
 <header>
     <nav>
+        <a href="{% url 'home_page' %}">
+    <i class="fas fa-house-chimney-medical"></i></a>
         <a href="{% url 'doctor_list' %}">Doctors</a>
         <a href="{% url 'patient_list' %}">Patients</a>
         <a href="{% url 'appointment_list' %}">Appointments</a>
