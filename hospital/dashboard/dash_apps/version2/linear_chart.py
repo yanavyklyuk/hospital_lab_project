@@ -10,10 +10,14 @@ def create_linear_chart():
     df_linear['year'] = df_linear['start_of_disease'].dt.year
 
     initial_year = df_linear['year'].min()
-    initial_disease = df_linear['disease'].iloc[0]
+    initial_disease = 'All'
 
     def filter_data(year, disease):
-        filtered = df_linear[(df_linear['year'] == year) & (df_linear['disease'] == disease)]
+        if disease == 'All':
+            filtered = df_linear[df_linear['year'] == year]
+        else:
+            filtered = df_linear[(df_linear['year'] == year) & (df_linear['disease'] == disease)]
+
         monthly_counts = (
             filtered.groupby('start_month')
             .size()
@@ -53,7 +57,7 @@ def create_linear_chart():
     diseases = sorted(df_linear['disease'].unique())
     years = sorted(df_linear['year'].unique())
 
-    disease_dropdown = Select(title="Select Disease", value=initial_disease, options=diseases)
+    disease_dropdown = Select(title="Select Disease", value='All', options=["All"] + list(df_linear['disease'].unique()))
     year_slider = Slider(title="Select Year", value=initial_year, start=years[0], end=years[-1], step=1)
 
     return line_plot, stats_table, disease_dropdown, year_slider, source_line, source_table, filter_data
