@@ -26,20 +26,14 @@
 
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
+            align-items: center;
             gap: 15px;
-            margin-bottom: 1em;
+            margin-bottom: 1.5em;
             padding: 1em;
-            background-color: #457b9d;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 1em;
-            padding: 1em;
-            background-color: #457b9d;
+            background: linear-gradient(135deg, #457b9d, #2a5d82);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
         }
 
         .nav-tile {
@@ -72,6 +66,24 @@
 
         footer p {
             margin: 0;
+        }
+
+        a {
+            color: #333;
+            text-decoration: none;
+            font-weight: normal;
+        }
+
+        a:hover {
+            color: #386988;
+        }
+
+        nav a {
+            color: white;
+        }
+
+        nav a:hover {
+            color: #a3e2ff;
         }
     </style>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
