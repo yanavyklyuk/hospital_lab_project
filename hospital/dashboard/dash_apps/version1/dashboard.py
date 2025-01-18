@@ -82,7 +82,7 @@ html.Div(
                         clearable=False,
                         placeholder="All"
                     ),
-                    dcc.Graph(id='map-chart', animate=True)
+                    dcc.Graph(id='map-chart', animate=False)
                 ]
             ),
 
@@ -123,7 +123,7 @@ html.Div(
                         clearable=False,
                         placeholder="All"
                     ),
-                    dcc.Graph(id='histogram-chart', animate=True)
+                    dcc.Graph(id='histogram-chart', animate=False)
                 ]
             ),
             html.Div(
@@ -208,7 +208,7 @@ html.Div(
                             )
                         ]
                     ),
-                    dcc.Graph(id='linear-chart', animate=True)
+                    dcc.Graph(id='linear-chart', animate=False)
                 ]
             ),
 
