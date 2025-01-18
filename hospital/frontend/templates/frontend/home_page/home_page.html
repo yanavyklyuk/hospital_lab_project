@@ -7,9 +7,124 @@
 {% block header %}Hospital Management System{% endblock %}
 
 {% block content %}
-<div style="text-align: center; padding: 4em 0;">
-    <h2>Welcome to the Hospital Management System</h2>
-    <img src="{% static 'home_page_logo.png' %}" alt="Hospital Icon" style="width: 150px; height: auto; margin-top: 20px;">
-    <p style="margin-top: 20px; font-size: 1.2em;">Manage Doctors, Patients, Appointments, and more efficiently.</p>
+<div style="display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; padding: 2em; font-family: 'Arial', sans-serif;">
+    <div style="max-width: 1000px; width: 100%; background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); overflow: hidden; display: flex; flex-direction: column;">
+
+        <!-- Верхній текст -->
+        <div style="padding: 30px; border-bottom: 1px solid #eaeaea;">
+            <h1 style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">Welcome to the Sigma Hospital Management System</h1>
+            <p style="font-size: 1.1rem; line-height: 1.6; color: #7f8c8d;">
+                Efficiently manage Doctors, Patients, Appointments, and much more with our state-of-the-art platform.
+            </p>
+        </div>
+
+        <!-- Зображення та слайдер -->
+        <div style="display: flex; flex-wrap: wrap; padding: 30px; gap: 20px; justify-content: space-between;">
+            <!-- Слайдер -->
+            <div style="flex: 1; min-width: 300px; position: relative; overflow: hidden; border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+                <div style="display: flex; transition: transform 1s ease-in-out;" id="slider-images">
+                    <img src="{% static 'hospital.jpg' %}" alt="Treatment Method" style="width: 100%; height: auto;">
+                    <img src="{% static 'inside.jpg' %}" alt="Medical Data" style="width: 100%; height: auto;">
+                    <img src="{% static 'room.jpg' %}" alt="Appointments" style="width: 100%; height: auto;">
+                </div>
+                <div class="arrow-left" onclick="prevImage()">&#10094;</div>
+                <div class="arrow-right" onclick="nextImage()">&#10095;</div>
+            </div>
+
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">Key Offerings</h3>
+                <ul style="list-style: none; padding: 0; font-size: 1rem; color: #7f8c8d; line-height: 2;">
+                    <li class="key-point">
+                        <span class="bullet"></span> Advanced treatment methods
+                    </li>
+                    <li class="key-point">
+                        <span class="bullet"></span> Efficient medical data management
+                    </li>
+                    <li class="key-point">
+                        <span class="bullet"></span> Seamless patient appointment scheduling
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    let currentIndex = 0;
+
+    function nextImage() {
+        const images = document.querySelectorAll('#slider-images img');
+        if (currentIndex < images.length - 1) {
+            currentIndex++;
+        } else {
+            currentIndex = 0;
+        }
+        updateSlider();
+    }
+
+    function prevImage() {
+        const images = document.querySelectorAll('#slider-images img');
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = images.length - 1;
+        }
+        updateSlider();
+    }
+
+    function updateSlider() {
+        const slider = document.getElementById('slider-images');
+        const imageWidth = slider.children[0].offsetWidth;
+        slider.style.transform = 'translateX(' + (-currentIndex * imageWidth) + 'px)';
+    }
+</script>
+
+<style>
+    .arrow-left, .arrow-right {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        color: rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        z-index: 10;
+        transition: color 0.3s ease;
+    }
+
+    .arrow-left {
+        left: 10px;
+    }
+
+    .arrow-right {
+        right: 10px;
+    }
+
+    .arrow-left:hover, .arrow-right:hover {
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    .key-point {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: transform 0.2s ease, color 0.3s ease;
+    }
+
+    .key-point:hover {
+        transform: scale(1.05);
+        color: #2c3e50;
+    }
+
+    .bullet {
+        width: 15px;
+        height: 15px;
+        background: #2980b9;
+        border-radius: 50%;
+        transition: background 0.3s ease;
+    }
+
+    .key-point:hover .bullet {
+        background: #3498db;
+    }
+</style>
 {% endblock %}
