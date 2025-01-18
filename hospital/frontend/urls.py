@@ -9,9 +9,11 @@ from .templates.frontend.disease_history import disease_history_view
 from .templates.frontend.appointment import appointment_view
 from .templates.frontend.patient_diseases import patient_diseases_view
 from .templates.frontend.doctor_schedule import doctor_schedule_view
+from .templates.frontend.home_page import home_page_view
 
 
 urlpatterns = [
+    path('home/', home_page_view.home, name='home_page'),
     path('doctors/', doctor_view.doctor_list, name='doctor_list'),
     path('doctors/<int:id>/', doctor_view.doctor_detail, name='doctor_detail'),
     path('doctors/new/', doctor_view.doctor_form, name='doctor_form'),

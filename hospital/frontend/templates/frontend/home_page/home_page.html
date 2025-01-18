@@ -1,0 +1,15 @@
+{% extends "frontend/base.html" %}
+
+{% load static %}
+
+{% block title %}Hospital Management System{% endblock %}
+
+{% block header %}Hospital Management System{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 4em 0;">
+    <h2>Welcome to the Hospital Management System</h2>
+    <img src="{% static 'images/home_page_logo.png' %}" alt="Hospital Icon" style="width: 150px; height: auto; margin-top: 20px;">
+    <p style="margin-top: 20px; font-size: 1.2em;">Manage Doctors, Patients, Appointments, and more efficiently.</p>
+</div>
+{% endblock %}
