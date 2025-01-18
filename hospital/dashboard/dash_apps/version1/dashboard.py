@@ -328,7 +328,7 @@ def update_graphs(selected_disease, selected_disease_histogram, selected_disease
             (df_linear['disease'] == selected_disease_l) & (df_linear['start_of_disease'].dt.year == selected_year)
             ]
     else:
-        df_lin_filtered = df_linear
+        df_lin_filtered = df_linear[df_linear['start_of_disease'].dt.year == selected_year]
 
     pie_chart = create_pie_chart(df_pie)
     map_chart = create_map_chart(df_map_filtered)
