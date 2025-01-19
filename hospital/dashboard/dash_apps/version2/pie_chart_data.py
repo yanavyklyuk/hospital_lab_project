@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-def get_appointments(api_token='0e6b59d6b34a0f9a9119ced567d72cf7190e9e60'):
+def get_appointments(api_token='4948ee5037d704266422e96e6c3cf83fb76527bf'):
     api_url = "http://127.0.0.1:8000/hospital/appointments/"
     headers = {
         'Authorization': f'Token {api_token}'

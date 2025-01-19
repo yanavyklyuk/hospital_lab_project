@@ -134,15 +134,14 @@ concurrency, concurrency_table = create_concurrency_graph()
 
 # Layout
 layout = column(
-    row(pie_chart, table_pie),
-    row(disease_dropdown_map, map_chart, table_map),
-    row(histogram_disease_dropdown, histogram_chart, table_histogram_stats),
-    row(heatmap_chart, table_heatmap_stats),
-    row(disease_dropdown, year_slider),
-    row(line_plot, line_table),
-    row(concurrency, concurrency_table)
+    row(pie_chart, table_pie, align="center"),
+    row(disease_dropdown_map, map_chart, table_map, align="center"),
+    row(histogram_disease_dropdown, histogram_chart, table_histogram_stats, align="center"),
+    row(heatmap_chart, table_heatmap_stats, align="center"),
+    row(disease_dropdown, year_slider, align="center"),
+    row(line_plot, line_table, align="center"),
+    row(concurrency, concurrency_table, align="center")
 )
 
-# Add to Document
 curdoc().add_root(layout)
 curdoc().title = "Bokeh Dashboard"
