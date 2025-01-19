@@ -10,7 +10,6 @@
 <div style="display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; padding: 2em; font-family: 'Arial', sans-serif;">
     <div style="max-width: 1000px; width: 100%; background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); overflow: hidden; display: flex; flex-direction: column;">
 
-        <!-- Верхній текст -->
         <div style="padding: 30px; border-bottom: 1px solid #eaeaea;">
             <h1 style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">Welcome to the Sigma Hospital Management System</h1>
             <p style="font-size: 1.1rem; line-height: 1.6; color: #7f8c8d;">
@@ -18,14 +17,18 @@
             </p>
         </div>
 
-        <!-- Зображення та слайдер -->
         <div style="display: flex; flex-wrap: wrap; padding: 30px; gap: 20px; justify-content: space-between;">
-            <!-- Слайдер -->
             <div style="flex: 1; min-width: 300px; position: relative; overflow: hidden; border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
                 <div style="display: flex; transition: transform 1s ease-in-out;" id="slider-images">
                     <img src="{% static 'hospital.jpg' %}" alt="Treatment Method" style="width: 100%; height: auto;">
                     <img src="{% static 'inside.jpg' %}" alt="Medical Data" style="width: 100%; height: auto;">
                     <img src="{% static 'room.jpg' %}" alt="Appointments" style="width: 100%; height: auto;">
+                    <img src="{% static 'appartus.jpg' %}" alt="Appointments" style="width: 100%; height: auto;">
+                    <img src="{% static 'outside.jpeg' %}" alt="Appointments" style="width: 100%; height: auto;">
+                    <img src="{% static 'reception.jpg' %}" alt="Appointments" style="width: 100%; height: auto;">
+                    <img src="{% static 'beds.jpg' %}" alt="Appointments" style="width: 100%; height: auto;">
+                    <img src="{% static 'outside2.jpeg' %}" alt="Appointments" style="width: 100%; height: auto;">
+                    <img src="{% static 'start.jpg' %}" alt="Appointments" style="width: 100%; height: auto;">
                 </div>
                 <div class="arrow-left" onclick="prevImage()">&#10094;</div>
                 <div class="arrow-right" onclick="nextImage()">&#10095;</div>
