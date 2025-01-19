@@ -28,6 +28,9 @@
     {% endfor %}
     </tbody>
 </table>
+
+<a href="{{ request.META.HTTP_REFERER }}">Back to doctor details</a>
+
 {% else %}
 <p>No schedules found.</p>
 {% endif %}

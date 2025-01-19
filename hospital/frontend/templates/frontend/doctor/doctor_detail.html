@@ -22,6 +22,7 @@
         <a href="{% url 'doctor_list' %}">Back to list</a>
         <a href="{% url 'doctor_delete' id=doctor.id %}">Delete</a>
         <a href="{% url 'doctor_form' id=doctor.id %}">Edit</a>
+        <a href="{% url 'doctor_schedules_list' id=doctor.id %}">Schedule</a>
     {% else %}
         <p>No doctor data to display.</p>
     {% endif %}

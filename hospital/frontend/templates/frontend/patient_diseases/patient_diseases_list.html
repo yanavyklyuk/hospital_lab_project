@@ -38,6 +38,9 @@
     {% endfor %}
     </tbody>
 </table>
+
+<a href="{{ request.META.HTTP_REFERER }}">Back to patient details</a>
+
 {% else %}
 <p>No disease histories found.</p>
 {% endif %}
