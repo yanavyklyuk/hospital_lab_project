@@ -14,7 +14,6 @@ def schedule_list(request):
     fields = [
         ('day', 'Day'),
         ('doctor', 'Doctor'),
-        ('doctor_id', 'Doctor ID'),
         ('start_time', 'Start Time'),
         ('end_time', 'End Time'),
         ('minutes_per_patient', 'Minutes per Patient'),
