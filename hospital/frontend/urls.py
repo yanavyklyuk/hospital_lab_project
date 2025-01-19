@@ -45,4 +45,5 @@ urlpatterns = [
     path('disease_histories/<int:id>/edit/', disease_history_view.disease_history_form, name='disease_history_form'),
     path('appointments/', appointment_view.appointment_list, name='appointment_list'),
     path('appointments/<int:id>/', appointment_view.appointment_detail, name='appointment_detail'),
+    path('appointments/new/', appointment_view.appointment_form, name='appointment_form'),
 ]
