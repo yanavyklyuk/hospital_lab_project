@@ -19,27 +19,21 @@ def create_concurrency_graph():
 
     concurrency_dataframe['x'] = list(zip(concurrency_dataframe['processes'], concurrency_dataframe['threads']))
 
-    # Підготовка даних для Bokeh
     x = [str(i) + '-' + str(j) for i, j in concurrency_dataframe[['processes', 'threads']].values]
     counts = concurrency_dataframe['time'].values
 
-    # Створюємо джерело даних
     source = ColumnDataSource(data=dict(x=x, counts=counts, processes=concurrency_dataframe['processes'],
                                         threads=concurrency_dataframe['threads'], time=concurrency_dataframe['time']))
 
-    # Створення графіка
     concurrency = figure(x_range=FactorRange(*x), height=350, title="Execution Time by Processes and Threads",
                          toolbar_location=None, tools="")
 
-    # Малюємо стовпці
     concurrency.vbar(x='x', top='counts', width=0.9, source=source)
 
-    # Додаємо інтерактивні підказки
     hover = HoverTool()
     hover.tooltips = [("Processes", "@processes"), ("Threads", "@threads"), ("Time", "@time")]
     concurrency.add_tools(hover)
 
-    # Налаштування графіка
     concurrency.y_range.start = 0
     concurrency.x_range.range_padding = 0.1
     concurrency.xaxis.major_label_orientation = 1
@@ -57,10 +51,8 @@ def create_concurrency_graph():
     stats_concurrency = concurrency_dataframe['time'].describe().reset_index()
     stats_concurrency.columns = ['Statistic', 'Value']
 
-    # Створюємо джерело даних для таблиці статистики
     stats_source = ColumnDataSource(stats_concurrency)
 
-    # Створюємо таблицю статистики
     columns = [
         TableColumn(field="Statistic", title="Statistic"),
         TableColumn(field="Value", title="Value")

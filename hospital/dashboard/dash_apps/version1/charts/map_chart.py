@@ -11,6 +11,8 @@ def create_map_chart(df):
 
     country_counts = preprocess_data(df)
 
+    country_counts['Cases'] = country_counts['Cases'].replace(0, None)
+
     fig = px.choropleth(
         country_counts,
         locations="Country",
@@ -18,7 +20,7 @@ def create_map_chart(df):
         color="Cases",
         hover_name="Country",
         color_continuous_scale="Hot_r",
-        range_color=[1, max(country_counts['Cases'])],
+        range_color=[1, max(country_counts['Cases'].dropna())],
         labels={'Cases': 'Number of Cases'},
         title="Global Disease Cases"
     )
@@ -30,7 +32,7 @@ def create_map_chart(df):
         coastlinecolor="Black",
         projection_type="natural earth",
         showland=True,
-        landcolor="white"
+        landcolor="lightgrey"
     )
 
     fig.update_traces(

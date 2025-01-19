@@ -10,7 +10,6 @@ def create_heatmap_chart():
     df_heatmap = get_experience_dataframe()
     source_heatmap = ColumnDataSource(df_heatmap)
 
-    # Heatmap Visualization
     heatmap_chart = figure(
         title="Doctor Distribution by Experience and Appointments",
         x_range=df_heatmap['experience_category'].cat.categories.tolist(),
@@ -22,7 +21,6 @@ def create_heatmap_chart():
         toolbar_location="right"
     )
 
-    # Add Rectangles for Heatmap
     color_mapper = linear_cmap(
         field_name='doctor_count',
         palette=Viridis256,
@@ -40,7 +38,6 @@ def create_heatmap_chart():
         fill_color=color_mapper
     )
 
-    # Add HoverTool
     hover = HoverTool(
         tooltips=[
             ("Experience", "@experience_category"),
@@ -50,7 +47,6 @@ def create_heatmap_chart():
     )
     heatmap_chart.add_tools(hover)
 
-    # Add Color Bar
     color_bar = ColorBar(
         color_mapper=color_mapper['transform'],
         width=8,
@@ -59,7 +55,6 @@ def create_heatmap_chart():
     )
     heatmap_chart.add_layout(color_bar, 'right')
 
-    # Statistics Table
     stats_heatmap = df_heatmap['doctor_count'].describe().reset_index()
     stats_heatmap.columns = ['Statistic', 'Value']
     source_stats_heatmap = ColumnDataSource(stats_heatmap)

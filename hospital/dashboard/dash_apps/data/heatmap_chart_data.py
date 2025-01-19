@@ -19,7 +19,7 @@ def get_experience_dataframe():
     flattened_appointments = []
 
     for item in appointments:
-        practice_start_date = datetime.strptime(item['doctor']['practice_start_date'], '%Y-%m-%d')  # Припускаємо, що дата у форматі 'YYYY-MM-DD'
+        practice_start_date = datetime.strptime(item['doctor']['practice_start_date'], '%Y-%m-%d')
         current_date = datetime.now()
 
         years_of_experience = current_date.year - practice_start_date.year
