@@ -60,7 +60,7 @@ def analyze_concurrency(url, api_token, num_requests=250):
 
 if __name__ == "__main__":
     url = "http://127.0.0.1:8000/frontend/patients/124/diseases_journal/"
-    api_token = "4948ee5037d704266422e96e6c3cf83fb76527bf"
+    api_token = "0e6b59d6b34a0f9a9119ced567d72cf7190e9e60"
     df = analyze_concurrency(url, api_token)
     print(df)
 
